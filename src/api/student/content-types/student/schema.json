@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "students",
+  "info": {
+    "singularName": "student",
+    "pluralName": "students",
+    "displayName": "student",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "fullName": {
+      "type": "string"
+    },
+    "class": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::class.class",
+      "inversedBy": "students"
+    },
+    "subjects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::subject.subject",
+      "inversedBy": "students"
+    },
+    "examMarks": {
+      "displayName": "exam-marks",
+      "type": "component",
+      "repeatable": true,
+      "component": "exam-marks.exam-marks"
+    },
+    "rollNo": {
+      "type": "string"
+    },
+    "registrationNo": {
+      "type": "string"
+    },
+    "dob": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "M",
+        "F",
+        "O"
+      ]
+    },
+    "email": {
+      "type": "email"
+    },
+    "bloodGroup": {
+      "type": "string"
+    },
+    "house": {
+      "type": "string"
+    },
+    "termAttendance": {
+      "type": "integer"
+    },
+    "sessionAttendance": {
+      "type": "integer"
+    }
+  }
+}

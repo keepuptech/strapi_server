@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "classgroups",
+  "info": {
+    "singularName": "classgroup",
+    "pluralName": "classgroups",
+    "displayName": "classgroup",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "enumeration",
+      "enum": [
+        "PRIMARY",
+        "SEC",
+        "KINDER"
+      ]
+    },
+    "classes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::class.class",
+      "mappedBy": "classgroup"
+    }
+  }
+}

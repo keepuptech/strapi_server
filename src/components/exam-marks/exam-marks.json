@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_exam_marks_exam_marks",
+  "info": {
+    "displayName": "exam-marks"
+  },
+  "options": {},
+  "attributes": {
+    "exam": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::exam.exam"
+    },
+    "subjectMarks": {
+      "displayName": "subject-marks",
+      "type": "component",
+      "repeatable": true,
+      "component": "subject-marks.subject-marks"
+    }
+  }
+}

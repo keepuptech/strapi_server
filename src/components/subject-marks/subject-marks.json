@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_subject_marks_subject_marks",
+  "info": {
+    "displayName": "subject-marks"
+  },
+  "options": {},
+  "attributes": {
+    "subject": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subject.subject"
+    },
+    "marks": {
+      "type": "float"
+    }
+  }
+}
