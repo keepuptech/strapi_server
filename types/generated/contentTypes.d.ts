@@ -695,7 +695,11 @@ export interface ApiClassClass extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
     school: Attribute.Relation<
       'api::class.class',
       'manyToOne',
@@ -867,7 +871,10 @@ export interface ApiSchoolSchool extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
     contact: Attribute.String;
     email: Attribute.Email;
     type: Attribute.Enumeration<['GOV', 'PRIVATE']>;
@@ -926,7 +933,11 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    fullName: Attribute.String;
+    fullName: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }>;
     class: Attribute.Relation<
       'api::student.student',
       'manyToOne',
@@ -977,7 +988,10 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
     school: Attribute.Relation<
       'api::subject.subject',
       'manyToOne',
@@ -989,7 +1003,7 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'api::student.student'
     >;
     type: Attribute.Enumeration<['THEORY', 'PRACTICAL']>;
-    sub_code: Attribute.String;
+    sub_code: Attribute.String & Attribute.Required & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "maxLength": 100
     },
     "school": {
       "type": "relation",
@@ -35,7 +36,9 @@
       ]
     },
     "sub_code": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "required": true
     }
   }
 }
