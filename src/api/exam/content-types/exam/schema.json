@@ -4,7 +4,8 @@
   "info": {
     "singularName": "exam",
     "pluralName": "exams",
-    "displayName": "exam"
+    "displayName": "exam",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,6 +14,12 @@
   "attributes": {
     "name": {
       "type": "string"
+    },
+    "school": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::school.school",
+      "inversedBy": "exams"
     }
   }
 }

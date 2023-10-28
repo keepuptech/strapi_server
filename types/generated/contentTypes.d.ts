@@ -482,6 +482,50 @@ export interface PluginUploadFolder extends Schema.CollectionType {
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<{
+        min: 1;
+        max: 50;
+      }>;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -639,50 +683,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<{
-        min: 1;
-        max: 50;
-      }>;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiClassClass extends Schema.CollectionType {
   collectionName: 'classes';
   info: {
@@ -711,6 +711,7 @@ export interface ApiClassClass extends Schema.CollectionType {
       'manyToOne',
       'api::classgroup.classgroup'
     >;
+    group: Attribute.Enumeration<['PRIMARY', 'SECONDARY']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -771,18 +772,85 @@ export interface ApiExamExam extends Schema.CollectionType {
     singularName: 'exam';
     pluralName: 'exams';
     displayName: 'exam';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     name: Attribute.String;
+    school: Attribute.Relation<
+      'api::exam.exam',
+      'manyToOne',
+      'api::school.school'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::exam.exam', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRcRc extends Schema.SingleType {
+  collectionName: 'rcs';
+  info: {
+    singularName: 'rc';
+    pluralName: 'rcs';
+    displayName: 'rc';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    header: Attribute.Component<'rc-header.header'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::rc.rc', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::rc.rc', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiReportTemplateReportTemplate extends Schema.CollectionType {
+  collectionName: 'report_templates';
+  info: {
+    singularName: 'report-template';
+    pluralName: 'report-templates';
+    displayName: 'report_template';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    template: Attribute.JSON;
+    group: Attribute.Enumeration<['PRIMARY', 'SECONDARY']>;
+    school: Attribute.Relation<
+      'api::report-template.report-template',
+      'manyToOne',
+      'api::school.school'
+    >;
+    type: Attribute.Enumeration<['DEFAULT', 'CUSTOM']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::report-template.report-template',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::report-template.report-template',
+      'oneToOne',
+      'admin::user'
+    > &
       Attribute.Private;
   };
 }
@@ -817,6 +885,16 @@ export interface ApiSchoolSchool extends Schema.CollectionType {
       'api::school.school',
       'oneToMany',
       'api::subject.subject'
+    >;
+    exams: Attribute.Relation<
+      'api::school.school',
+      'oneToMany',
+      'api::exam.exam'
+    >;
+    report_templates: Attribute.Relation<
+      'api::school.school',
+      'oneToMany',
+      'api::report-template.report-template'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -910,6 +988,8 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'manyToMany',
       'api::student.student'
     >;
+    type: Attribute.Enumeration<['THEORY', 'PRACTICAL']>;
+    sub_code: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -940,13 +1020,15 @@ declare module '@strapi/types' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
       'api::class.class': ApiClassClass;
       'api::classgroup.classgroup': ApiClassgroupClassgroup;
       'api::exam.exam': ApiExamExam;
+      'api::rc.rc': ApiRcRc;
+      'api::report-template.report-template': ApiReportTemplateReportTemplate;
       'api::school.school': ApiSchoolSchool;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;

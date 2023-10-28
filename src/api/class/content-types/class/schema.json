@@ -32,6 +32,13 @@
       "relation": "manyToOne",
       "target": "api::classgroup.classgroup",
       "inversedBy": "classes"
+    },
+    "group": {
+      "type": "enumeration",
+      "enum": [
+        "PRIMARY",
+        "SECONDARY"
+      ]
     }
   }
 }

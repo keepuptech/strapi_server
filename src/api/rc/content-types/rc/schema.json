@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "rcs",
+  "info": {
+    "singularName": "rc",
+    "pluralName": "rcs",
+    "displayName": "rc"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "header": {
+      "displayName": "header",
+      "type": "component",
+      "repeatable": false,
+      "component": "rc-header.header"
+    }
+  }
+}

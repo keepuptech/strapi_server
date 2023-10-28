@@ -45,6 +45,18 @@
       "relation": "oneToMany",
       "target": "api::subject.subject",
       "mappedBy": "school"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam.exam",
+      "mappedBy": "school"
+    },
+    "report_templates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::report-template.report-template",
+      "mappedBy": "school"
     }
   }
 }

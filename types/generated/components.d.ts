@@ -15,6 +15,18 @@ export interface ExamMarksExamMarks extends Schema.Component {
   };
 }
 
+export interface RcHeaderHeader extends Schema.Component {
+  collectionName: 'components_rc_header_headers';
+  info: {
+    displayName: 'header';
+    icon: 'cog';
+  };
+  attributes: {
+    school_name: Attribute.String;
+    leftimg: Attribute.Media;
+  };
+}
+
 export interface SubjectMarksSubjectMarks extends Schema.Component {
   collectionName: 'components_subject_marks_subject_marks';
   info: {
@@ -34,6 +46,7 @@ declare module '@strapi/types' {
   export module Shared {
     export interface Components {
       'exam-marks.exam-marks': ExamMarksExamMarks;
+      'rc-header.header': RcHeaderHeader;
       'subject-marks.subject-marks': SubjectMarksSubjectMarks;
     }
   }
