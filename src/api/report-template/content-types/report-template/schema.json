@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "subjects",
+  "collectionName": "report_templates",
   "info": {
-    "singularName": "subject",
-    "pluralName": "subjects",
-    "displayName": "subject",
+    "singularName": "report-template",
+    "pluralName": "report-templates",
+    "displayName": "report_template",
     "description": ""
   },
   "options": {
@@ -15,27 +15,28 @@
     "name": {
       "type": "string"
     },
+    "template": {
+      "type": "json"
+    },
+    "group": {
+      "type": "enumeration",
+      "enum": [
+        "PRIMARY",
+        "SECONDARY"
+      ]
+    },
     "school": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::school.school",
-      "inversedBy": "subjects"
-    },
-    "students": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::student.student",
-      "mappedBy": "subjects"
+      "inversedBy": "report_templates"
     },
     "type": {
       "type": "enumeration",
       "enum": [
-        "THEORY",
-        "PRACTICAL"
+        "DEFAULT",
+        "CUSTOM"
       ]
-    },
-    "sub_code": {
-      "type": "string"
     }
   }
 }

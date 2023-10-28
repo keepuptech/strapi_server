@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_rc_header_headers",
+  "info": {
+    "displayName": "header",
+    "icon": "cog"
+  },
+  "options": {},
+  "attributes": {
+    "school_name": {
+      "type": "string"
+    },
+    "leftimg": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
