@@ -20,6 +20,12 @@
       "relation": "manyToOne",
       "target": "api::school.school",
       "inversedBy": "exams"
+    },
+    "term": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::term.term",
+      "inversedBy": "exams"
     }
   }
 }

@@ -788,6 +788,7 @@ export interface ApiExamExam extends Schema.CollectionType {
       'manyToOne',
       'api::school.school'
     >;
+    term: Attribute.Relation<'api::exam.exam', 'manyToOne', 'api::term.term'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -902,6 +903,11 @@ export interface ApiSchoolSchool extends Schema.CollectionType {
       'api::school.school',
       'oneToMany',
       'api::report-template.report-template'
+    >;
+    terms: Attribute.Relation<
+      'api::school.school',
+      'oneToMany',
+      'api::term.term'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1022,6 +1028,39 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
   };
 }
 
+export interface ApiTermTerm extends Schema.CollectionType {
+  collectionName: 'terms';
+  info: {
+    singularName: 'term';
+    pluralName: 'terms';
+    displayName: 'Term';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 100;
+      }>;
+    exams: Attribute.Relation<'api::term.term', 'oneToMany', 'api::exam.exam'>;
+    school: Attribute.Relation<
+      'api::term.term',
+      'manyToOne',
+      'api::school.school'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1046,6 +1085,7 @@ declare module '@strapi/types' {
       'api::school.school': ApiSchoolSchool;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
+      'api::term.term': ApiTermTerm;
     }
   }
 }

@@ -58,6 +58,12 @@
       "relation": "oneToMany",
       "target": "api::report-template.report-template",
       "mappedBy": "school"
+    },
+    "terms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::term.term",
+      "mappedBy": "school"
     }
   }
 }
