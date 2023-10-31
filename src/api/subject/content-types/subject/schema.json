@@ -39,6 +39,12 @@
       "type": "string",
       "unique": true,
       "required": true
+    },
+    "exam": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exam.exam",
+      "inversedBy": "subjects"
     }
   }
 }

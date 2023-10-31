@@ -26,6 +26,21 @@
       "relation": "manyToOne",
       "target": "api::term.term",
       "inversedBy": "exams"
+    },
+    "subjects": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::subject.subject",
+      "mappedBy": "exam"
+    },
+    "maxMarks": {
+      "type": "integer",
+      "default": 100,
+      "max": 1000
+    },
+    "minMarks": {
+      "type": "integer",
+      "min": 0
     }
   }
 }

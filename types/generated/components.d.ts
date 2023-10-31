@@ -31,6 +31,7 @@ export interface SubjectMarksSubjectMarks extends Schema.Component {
   collectionName: 'components_subject_marks_subject_marks';
   info: {
     displayName: 'subject-marks';
+    description: '';
   };
   attributes: {
     subject: Attribute.Relation<
@@ -38,7 +39,22 @@ export interface SubjectMarksSubjectMarks extends Schema.Component {
       'oneToOne',
       'api::subject.subject'
     >;
-    marks: Attribute.Float;
+    marks: Attribute.Decimal;
+  };
+}
+
+export interface SubjectsSubjects extends Schema.Component {
+  collectionName: 'components_subjects_subjects';
+  info: {
+    displayName: 'subjects';
+    description: '';
+  };
+  attributes: {
+    subject: Attribute.Relation<
+      'subjects.subjects',
+      'oneToOne',
+      'api::subject.subject'
+    >;
   };
 }
 
@@ -48,6 +64,7 @@ declare module '@strapi/types' {
       'exam-marks.exam-marks': ExamMarksExamMarks;
       'rc-header.header': RcHeaderHeader;
       'subject-marks.subject-marks': SubjectMarksSubjectMarks;
+      'subjects.subjects': SubjectsSubjects;
     }
   }
 }

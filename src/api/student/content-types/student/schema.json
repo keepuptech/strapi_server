@@ -13,9 +13,7 @@
   "pluginOptions": {},
   "attributes": {
     "fullName": {
-      "type": "string",
-      "maxLength": 500,
-      "required": true
+      "type": "string"
     },
     "class": {
       "type": "relation",

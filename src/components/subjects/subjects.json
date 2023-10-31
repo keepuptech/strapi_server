@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_subject_marks_subject_marks",
+  "collectionName": "components_subjects_subjects",
   "info": {
-    "displayName": "subject-marks",
+    "displayName": "subjects",
     "description": ""
   },
   "options": {},
@@ -10,9 +10,6 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::subject.subject"
-    },
-    "marks": {
-      "type": "decimal"
     }
   }
 }

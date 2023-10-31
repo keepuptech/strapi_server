@@ -789,6 +789,20 @@ export interface ApiExamExam extends Schema.CollectionType {
       'api::school.school'
     >;
     term: Attribute.Relation<'api::exam.exam', 'manyToOne', 'api::term.term'>;
+    subjects: Attribute.Relation<
+      'api::exam.exam',
+      'oneToMany',
+      'api::subject.subject'
+    >;
+    maxMarks: Attribute.Integer &
+      Attribute.SetMinMax<{
+        max: 1000;
+      }> &
+      Attribute.DefaultTo<100>;
+    minMarks: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -939,11 +953,7 @@ export interface ApiStudentStudent extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    fullName: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 500;
-      }>;
+    fullName: Attribute.String;
     class: Attribute.Relation<
       'api::student.student',
       'manyToOne',
@@ -1010,6 +1020,11 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     >;
     type: Attribute.Enumeration<['THEORY', 'PRACTICAL']>;
     sub_code: Attribute.String & Attribute.Required & Attribute.Unique;
+    exam: Attribute.Relation<
+      'api::subject.subject',
+      'manyToOne',
+      'api::exam.exam'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
