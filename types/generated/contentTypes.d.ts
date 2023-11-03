@@ -791,7 +791,7 @@ export interface ApiExamExam extends Schema.CollectionType {
     term: Attribute.Relation<'api::exam.exam', 'manyToOne', 'api::term.term'>;
     subjects: Attribute.Relation<
       'api::exam.exam',
-      'oneToMany',
+      'manyToMany',
       'api::subject.subject'
     >;
     maxMarks: Attribute.Integer &
@@ -1020,9 +1020,9 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     >;
     type: Attribute.Enumeration<['THEORY', 'PRACTICAL']>;
     sub_code: Attribute.String & Attribute.Required & Attribute.Unique;
-    exam: Attribute.Relation<
+    exams: Attribute.Relation<
       'api::subject.subject',
-      'manyToOne',
+      'manyToMany',
       'api::exam.exam'
     >;
     createdAt: Attribute.DateTime;

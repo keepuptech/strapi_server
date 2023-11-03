@@ -40,9 +40,9 @@
       "unique": true,
       "required": true
     },
-    "exam": {
+    "exams": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::exam.exam",
       "inversedBy": "subjects"
     }

@@ -29,9 +29,9 @@
     },
     "subjects": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::subject.subject",
-      "mappedBy": "exam"
+      "mappedBy": "exams"
     },
     "maxMarks": {
       "type": "integer",
