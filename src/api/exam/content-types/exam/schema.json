@@ -20,6 +20,27 @@
       "relation": "manyToOne",
       "target": "api::school.school",
       "inversedBy": "exams"
+    },
+    "term": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::term.term",
+      "inversedBy": "exams"
+    },
+    "subjects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::subject.subject",
+      "mappedBy": "exams"
+    },
+    "maxMarks": {
+      "type": "integer",
+      "default": 100,
+      "max": 1000
+    },
+    "minMarks": {
+      "type": "integer",
+      "min": 0
     }
   }
 }

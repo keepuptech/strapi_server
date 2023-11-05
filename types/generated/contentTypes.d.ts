@@ -695,7 +695,11 @@ export interface ApiClassClass extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
     school: Attribute.Relation<
       'api::class.class',
       'manyToOne',
@@ -784,6 +788,21 @@ export interface ApiExamExam extends Schema.CollectionType {
       'manyToOne',
       'api::school.school'
     >;
+    term: Attribute.Relation<'api::exam.exam', 'manyToOne', 'api::term.term'>;
+    subjects: Attribute.Relation<
+      'api::exam.exam',
+      'manyToMany',
+      'api::subject.subject'
+    >;
+    maxMarks: Attribute.Integer &
+      Attribute.SetMinMax<{
+        max: 1000;
+      }> &
+      Attribute.DefaultTo<100>;
+    minMarks: Attribute.Integer &
+      Attribute.SetMinMax<{
+        min: 0;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -867,7 +886,10 @@ export interface ApiSchoolSchool extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 300;
+      }>;
     contact: Attribute.String;
     email: Attribute.Email;
     type: Attribute.Enumeration<['GOV', 'PRIVATE']>;
@@ -895,6 +917,11 @@ export interface ApiSchoolSchool extends Schema.CollectionType {
       'api::school.school',
       'oneToMany',
       'api::report-template.report-template'
+    >;
+    terms: Attribute.Relation<
+      'api::school.school',
+      'oneToMany',
+      'api::term.term'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -977,7 +1004,10 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
     school: Attribute.Relation<
       'api::subject.subject',
       'manyToOne',
@@ -989,7 +1019,12 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'api::student.student'
     >;
     type: Attribute.Enumeration<['THEORY', 'PRACTICAL']>;
-    sub_code: Attribute.String;
+    sub_code: Attribute.String & Attribute.Required & Attribute.Unique;
+    exams: Attribute.Relation<
+      'api::subject.subject',
+      'manyToMany',
+      'api::exam.exam'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1004,6 +1039,39 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTermTerm extends Schema.CollectionType {
+  collectionName: 'terms';
+  info: {
+    singularName: 'term';
+    pluralName: 'terms';
+    displayName: 'Term';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 1;
+        maxLength: 100;
+      }>;
+    exams: Attribute.Relation<'api::term.term', 'oneToMany', 'api::exam.exam'>;
+    school: Attribute.Relation<
+      'api::term.term',
+      'manyToOne',
+      'api::school.school'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::term.term', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -1032,6 +1100,7 @@ declare module '@strapi/types' {
       'api::school.school': ApiSchoolSchool;
       'api::student.student': ApiStudentStudent;
       'api::subject.subject': ApiSubjectSubject;
+      'api::term.term': ApiTermTerm;
     }
   }
 }
