@@ -746,12 +746,17 @@ export interface ApiClassgroupClassgroup extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.Enumeration<['PRIMARY', 'SEC', 'KINDER']>;
     classes: Attribute.Relation<
       'api::classgroup.classgroup',
       'oneToMany',
       'api::class.class'
     >;
+    exams: Attribute.Relation<
+      'api::classgroup.classgroup',
+      'oneToMany',
+      'api::exam.exam'
+    >;
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -803,6 +808,11 @@ export interface ApiExamExam extends Schema.CollectionType {
       Attribute.SetMinMax<{
         min: 0;
       }>;
+    classgroup: Attribute.Relation<
+      'api::exam.exam',
+      'manyToOne',
+      'api::classgroup.classgroup'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

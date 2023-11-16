@@ -41,6 +41,12 @@
     "minMarks": {
       "type": "integer",
       "min": 0
+    },
+    "classgroup": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::classgroup.classgroup",
+      "inversedBy": "exams"
     }
   }
 }
