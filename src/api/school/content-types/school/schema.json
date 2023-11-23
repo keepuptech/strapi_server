@@ -64,6 +64,25 @@
       "relation": "oneToMany",
       "target": "api::term.term",
       "mappedBy": "school"
+    },
+    "affiliation": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "website": {
+      "type": "string"
+    },
+    "emblem": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
