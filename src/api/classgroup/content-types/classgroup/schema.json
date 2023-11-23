@@ -12,19 +12,22 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "enumeration",
-      "enum": [
-        "PRIMARY",
-        "SEC",
-        "KINDER"
-      ]
-    },
     "classes": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::class.class",
       "mappedBy": "classgroup"
+    },
+    "exams": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exam.exam",
+      "mappedBy": "classgroup"
+    },
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
     }
   }
 }
