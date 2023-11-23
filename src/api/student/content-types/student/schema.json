@@ -1,4 +1,5 @@
 {
+
   "kind": "collectionType",
   "collectionName": "students",
   "info": {
@@ -64,6 +65,21 @@
     },
     "sessionAttendance": {
       "type": "integer"
+    },
+    "fatherName": {
+      "type": "string"
+    },
+    "motherName": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "cbseRegNo": {
+      "type": "string"
+    },
+    "contactNo": {
+      "type": "string"
     }
   }
 }
